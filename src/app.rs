@@ -46,7 +46,7 @@ impl GtktokApp {
             .set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
         self.window().set_title(Some(APP_INFO.app_name));
 
-        let frame: adw::gtk::Frame = adw::gtk::Frame::new(Some("test"));
+        let frame: adw::gtk::Button = adw::gtk::Button::new();
         self.window().set_child(Some(&frame));
 
         self.on_about();
@@ -70,7 +70,11 @@ impl GtktokApp {
         about_dialog.set_license(APP_INFO.license);
         about_dialog.set_license_type(APP_INFO.license_type);
         about_dialog.set_comments(APP_INFO.comments);
+        // render above our main application window
         about_dialog.set_transient_for(Some(self.window()));
+
+        about_dialog.set_default_height(350);
+
         about_dialog.present();
     }
 }
