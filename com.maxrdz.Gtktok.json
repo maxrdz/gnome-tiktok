@@ -1,0 +1,12 @@
+{
+    "app-id": "com.maxrdz.Gtktok",
+    "runtime": "org.gnome.Sdk",
+    "runtime-version": "master",
+    "sdk": "org.gnome.Sdk",
+    "sdk-extensions": [],
+    "command": "gnome-usage",
+    "tags": [],
+    "finish-args": [],
+    "cleanup": [],
+    "modules": []
+}

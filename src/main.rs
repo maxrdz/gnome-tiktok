@@ -14,30 +14,29 @@
 // along with this program; if not, write to the Free Software Foundation,
 // Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-use glib::clone;
-// glib and other dependencies are re-exported by the gtk crate
-use gtk::glib;
+mod app;
+mod globals;
+
+use gtk::glib::ExitCode;
 use gtk::prelude::*;
+use gtk::Application;
 
-// When the application is launched…
-fn on_activate(application: &gtk::Application) {
-    // … create a new window …
-    let window = gtk::ApplicationWindow::new(application);
-    // … with a button in it …
-    let button = gtk::Button::with_label("Hello World!");
-    // … which closes the window when clicked
-    button.connect_clicked(clone!(@weak window => move |_| window.close()));
-    window.set_child(Some(&button));
-    window.present();
+fn on_activate(gtk_application: &Application) {
+    use app::GtktokApp;
+
+    let app: GtktokApp = GtktokApp::new(gtk_application);
+    app.initialize();
 }
 
-fn main() {
-    // Create a new application with the builder pattern
-    let app = gtk::Application::builder()
-        .application_id("com.github.maxrdz.tiktok-linux-mobile")
-        .build();
-    app.connect_activate(on_activate);
-    // Run the application
-    app.run();
-}
+fn main() -> Result<(), ()> {
+    use globals::APP_ID;
 
+    let gtk_app = gtk::Application::builder().application_id(APP_ID).build();
+    gtk_app.connect_activate(on_activate);
+
+    match gtk_app.run() {
+        ExitCode::SUCCESS => Ok(()),
+        ExitCode::FAILURE => Err(()),
+        _ => Err(()),
+    }
+}
