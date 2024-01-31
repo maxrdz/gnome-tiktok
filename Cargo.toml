@@ -1,16 +1,17 @@
 [package]
-name = "gtktok"
+name = "tuxtok"
 version = "0.1.0"
 edition = "2021"
-license = "AGPL-3.0-Only"
+license = "GPL-3.0"
 authors = [
-    "Max Rodriguez <me@maxrdz.com>"
+    "Max Rodriguez <me@maxrdz.com>",
+    "vkill <vkill.net@gmail.com>",
 ]
 repository = "https://github.com/maxrdz/gtktok" 
 homepage = "https://github.com/maxrdz/gtktok"
 
 [dependencies]
-gtk = { version = "0.7", package = "gtk4" }
+libadwaita = { version = "0.5", features = ["v1_4"] }
 tiktok-api = { version = "0.3" }
 
 [profile.release]

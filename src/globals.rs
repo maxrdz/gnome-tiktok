@@ -1,4 +1,4 @@
-// Copyright (c) 2024, Gtktok Authors.
+// Copyright (c) 2024, TuxTok Authors.
 
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 3.
@@ -14,34 +14,40 @@
 // along with this program; if not, write to the Free Software Foundation,
 // Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-use gtk::License;
+use adw::gtk::License;
+use libadwaita as adw;
 
-pub static APP_VERSION: &str = "0.1.0";
-pub static APP_ID: &str = "com.maxrdz.Gtktok";
-
-pub static DESKTOP_VIEWPORT_RATIO: f32 = 20.0 / 9.0;
-pub static DESKTOP_DEFAULT_DIMENSIONS: (i32, i32) = (800, 360);
+pub static DESKTOP_VIEWPORT_RATIO: f32 = 18.0 / 9.0;
+pub static DESKTOP_DEFAULT_DIMENSIONS: (i32, i32) = (720, 360);
 
 pub struct AboutInformation {
-    pub app_name: Option<&'static str>,
-    pub app_version: Option<&'static str>,
+    pub app_name: &'static str,
+    pub app_version: &'static str,
+    pub app_id: &'static str,
     pub authors: &'static [&'static str],
-    pub artists: &'static [&'static str],
-    pub documenters: &'static [&'static str],
-    pub copyright: Option<&'static str>,
-    pub license: Option<&'static str>,
+    pub artists: Option<&'static [&'static str]>,
+    pub documenters: Option<&'static [&'static str]>,
+    pub copyright: &'static str,
+    pub license: &'static str,
     pub license_type: License,
-    pub comments: Option<&'static str>,
+    pub comments: &'static str,
 }
 
 pub static APP_INFO: AboutInformation = AboutInformation {
-    app_name: Some("gtktok"),
-    app_version: Some(APP_VERSION),
-    authors: &["Max Rodriguez <me@maxrdz.com>"],
-    artists: &[""],
-    documenters: &[""],
-    copyright: Some("© 2024 Gtktok Authors"),
-    license: Some("GNU General Public License v3.0"),
+    app_name: "TuxTok",
+    app_version: "0.1.0",
+    app_id: "com.maxrdz.TuxTok",
+    authors: &[
+        "Max Rodriguez <me@maxrdz.com>",
+        "vkill <vkill.net@gmail.com>",
+    ],
+    artists: None,
+    documenters: None,
+    copyright: "© 2024 TuxTok Authors",
+    license: "GNU General Public License v3.0",
     license_type: License::Gpl30,
-    comments: None,
+    comments: "A Linux mobile friendly app for using the \
+    Tiktok social media platform, built with libadwaita \
+    and GTK. Special thanks to vkill for developing the \
+    underlying TikTok API Rust library.",
 };

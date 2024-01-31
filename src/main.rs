@@ -1,4 +1,4 @@
-// Copyright (c) 2024, Gtktok Authors.
+// Copyright (c) 2024, TuxTok Authors.
 
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 3.
@@ -17,24 +17,24 @@
 mod app;
 mod globals;
 
-use gtk::glib::ExitCode;
-use gtk::prelude::*;
-use gtk::Application;
+use adw::glib::ExitCode;
+use adw::prelude::*;
+use adw::Application;
+use globals::APP_INFO;
+use libadwaita as adw;
 
-fn on_activate(gtk_application: &Application) {
-    use app::GtktokApp;
-
-    let app: GtktokApp = GtktokApp::new(gtk_application);
+fn on_activate(adw_application: &Application) {
+    let app: app::GtktokApp = app::GtktokApp::new(adw_application);
     app.initialize();
 }
 
 fn main() -> Result<(), ()> {
-    use globals::APP_ID;
+    let adw_app = Application::builder()
+        .application_id(APP_INFO.app_id)
+        .build();
+    adw_app.connect_activate(on_activate);
 
-    let gtk_app = gtk::Application::builder().application_id(APP_ID).build();
-    gtk_app.connect_activate(on_activate);
-
-    match gtk_app.run() {
+    match adw_app.run() {
         ExitCode::SUCCESS => Ok(()),
         ExitCode::FAILURE => Err(()),
         _ => Err(()),

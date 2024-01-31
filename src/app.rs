@@ -1,4 +1,4 @@
-// Copyright (c) 2024, Gtktok Authors.
+// Copyright (c) 2024, TuxTok Authors.
 
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 3.
@@ -15,53 +15,57 @@
 // Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 use crate::globals::*;
-use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow};
+use adw::prelude::*;
+use adw::{Application, ApplicationWindow};
+use libadwaita as adw;
 
 pub struct GtktokApp {
-    gtk_window: ApplicationWindow,
+    adw_window: ApplicationWindow,
 }
 
 impl GtktokApp {
-    pub fn new(gtk_app: &Application) -> Self {
+    pub fn new(adw_app: &Application) -> Self {
         Self {
-            gtk_window: ApplicationWindow::new(gtk_app),
+            adw_window: ApplicationWindow::new(adw_app),
         }
     }
 
-    pub fn gtk_win(&self) -> &ApplicationWindow {
-        &self.gtk_window
+    pub fn window(&self) -> &ApplicationWindow {
+        &self.adw_window
     }
 
     pub fn initialize(&self) {
         assert_eq!(
             DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
             DESKTOP_VIEWPORT_RATIO,
-            "The default desktop window dimensions ratio is not 20:9.",
+            "The default desktop window dimensions ratio is not 18:9.",
         );
 
-        self.gtk_win()
+        self.window()
             .set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
 
         self.on_about();
-        let button = gtk::Button::with_label("Hello World!");
-        self.gtk_win().set_child(Some(&button));
-        self.gtk_win().present();
+        self.window().present();
     }
 
     pub fn on_about(&self) {
-        // NOTE: not using the builder pattern due to different argument types.
-        let about_dialog: gtk::AboutDialog = gtk::AboutDialog::new();
+        let about_dialog: adw::AboutWindow = adw::AboutWindow::new();
 
-        about_dialog.set_program_name(APP_INFO.app_name);
+        about_dialog.set_application_name(APP_INFO.app_name);
         about_dialog.set_version(APP_INFO.app_version);
-        about_dialog.set_authors(APP_INFO.authors);
-        about_dialog.set_artists(APP_INFO.artists);
-        about_dialog.set_documenters(APP_INFO.documenters);
+        about_dialog.set_developers(APP_INFO.authors);
+        // TODO: libadwaiita doesnt accept options, but gtk does. could contribute?
+        if let Some(artists) = APP_INFO.artists {
+            about_dialog.set_artists(artists);
+        }
+        if let Some(documenters) = APP_INFO.documenters {
+            about_dialog.set_documenters(documenters);
+        }
         about_dialog.set_copyright(APP_INFO.copyright);
         about_dialog.set_license(APP_INFO.license);
         about_dialog.set_license_type(APP_INFO.license_type);
         about_dialog.set_comments(APP_INFO.comments);
-        about_dialog.show();
+        about_dialog.set_transient_for(Some(self.window()));
+        about_dialog.present();
     }
 }
