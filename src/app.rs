@@ -1,4 +1,4 @@
-// Copyright (c) 2024, TuxTok Authors.
+// Copyright (c) 2024, GNOME TikTok Authors.
 
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 3.
@@ -15,8 +15,9 @@
 // Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 use crate::globals::*;
+use adw::gtk::ApplicationWindow;
 use adw::prelude::*;
-use adw::{Application, ApplicationWindow};
+use adw::Application;
 use libadwaita as adw;
 
 pub struct GtktokApp {
@@ -43,6 +44,10 @@ impl GtktokApp {
 
         self.window()
             .set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
+        self.window().set_title(Some(APP_INFO.app_name));
+
+        let frame: adw::gtk::Frame = adw::gtk::Frame::new(Some("test"));
+        self.window().set_child(Some(&frame));
 
         self.on_about();
         self.window().present();

@@ -1,5 +1,5 @@
 [package]
-name = "tuxtok"
+name = "gnome-tiktok"
 version = "0.1.0"
 edition = "2021"
 license = "GPL-3.0"
@@ -7,8 +7,8 @@ authors = [
     "Max Rodriguez <me@maxrdz.com>",
     "vkill <vkill.net@gmail.com>",
 ]
-repository = "https://github.com/maxrdz/gtktok" 
-homepage = "https://github.com/maxrdz/gtktok"
+repository = "https://github.com/maxrdz/gnome-tiktok" 
+homepage = "https://github.com/maxrdz/gnome-tiktok"
 
 [dependencies]
 libadwaita = { version = "0.5", features = ["v1_4"] }

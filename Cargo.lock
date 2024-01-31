@@ -382,6 +382,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "gnome-tiktok"
+version = "0.1.0"
+dependencies = [
+ "libadwaita",
+ "tiktok-api",
+]
+
+[[package]]
 name = "gobject-sys"
 version = "0.18.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1020,14 +1028,6 @@ dependencies = [
  "serde_spanned",
  "toml_datetime",
  "winnow",
-]
-
-[[package]]
-name = "tuxtok"
-version = "0.1.0"
-dependencies = [
- "libadwaita",
- "tiktok-api",
 ]
 
 [[package]]

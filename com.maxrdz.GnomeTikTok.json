@@ -1,10 +1,10 @@
 {
-    "app-id": "com.maxrdz.TuxTok",
+    "app-id": "com.maxrdz.GnomeTikTok",
     "runtime": "org.gnome.Sdk",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [],
-    "command": "gnome-usage",
+    "command": "gnome-tiktok",
     "tags": [],
     "finish-args": [],
     "cleanup": [],

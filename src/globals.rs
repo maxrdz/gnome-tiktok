@@ -1,4 +1,4 @@
-// Copyright (c) 2024, TuxTok Authors.
+// Copyright (c) 2024, GNOME TikTok Authors.
 
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License version 3.
@@ -34,16 +34,16 @@ pub struct AboutInformation {
 }
 
 pub static APP_INFO: AboutInformation = AboutInformation {
-    app_name: "TuxTok",
+    app_name: "GNOME TikTok",
     app_version: "0.1.0",
-    app_id: "com.maxrdz.TuxTok",
+    app_id: "com.maxrdz.GnomeTikTok",
     authors: &[
         "Max Rodriguez <me@maxrdz.com>",
         "vkill <vkill.net@gmail.com>",
     ],
     artists: None,
     documenters: None,
-    copyright: "© 2024 TuxTok Authors",
+    copyright: "© 2024 GNOME TikTok Authors",
     license: "GNU General Public License v3.0",
     license_type: License::Gpl30,
     comments: "A Linux mobile friendly app for using the \
