@@ -25,23 +25,22 @@ use adw::gtk as gtk;
 use libadwaita as adw;
 
 use crate::globals::*;
-use crate::config::VERSION;
 use crate::NewWindow;
 
 mod imp {
     use super::*;
 
     #[derive(Debug, Default)]
-    pub struct NewApplication {}
+    pub struct GnomeTikTok {}
 
     #[glib::object_subclass]
-    impl ObjectSubclass for NewApplication {
-        const NAME: &'static str = "NewApplication";
-        type Type = super::NewApplication;
+    impl ObjectSubclass for GnomeTikTok {
+        const NAME: &'static str = "GnomeTikTok";
+        type Type = super::GnomeTikTok;
         type ParentType = adw::Application;
     }
 
-    impl ObjectImpl for NewApplication {
+    impl ObjectImpl for GnomeTikTok {
         fn constructed(&self) {
             self.parent_constructed();
             let obj = self.obj();
@@ -50,7 +49,7 @@ mod imp {
         }
     }
 
-    impl ApplicationImpl for NewApplication {
+    impl ApplicationImpl for GnomeTikTok {
         // We connect to the activate callback to create a window when the application
         // has been launched. Additionally, this callback notifies us when the user
         // tries to launch a "second instance" of the application. When they try
@@ -65,22 +64,31 @@ mod imp {
                 window.upcast()
             };
 
+            assert_eq!(
+                DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
+                DESKTOP_VIEWPORT_RATIO,
+                "The default desktop window dimensions ratio is not 18:9.",
+            );
+
+            window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
+            window.set_title(Some(APP_INFO.app_name));
+
             // Ask the window manager/compositor to present the window
             window.present();
         }
     }
 
-    impl GtkApplicationImpl for NewApplication {}
-    impl AdwApplicationImpl for NewApplication {}
+    impl GtkApplicationImpl for GnomeTikTok {}
+    impl AdwApplicationImpl for GnomeTikTok {}
 }
 
 glib::wrapper! {
-    pub struct NewApplication(ObjectSubclass<imp::NewApplication>)
+    pub struct GnomeTikTok(ObjectSubclass<imp::GnomeTikTok>)
         @extends gio::Application, gtk::Application, adw::Application,
         @implements gio::ActionGroup, gio::ActionMap;
 }
 
-impl NewApplication {
+impl GnomeTikTok {
     pub fn new(application_id: &str, flags: &gio::ApplicationFlags) -> Self {
         glib::Object::builder()
             .property("application-id", application_id)

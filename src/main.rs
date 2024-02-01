@@ -23,7 +23,7 @@ mod config;
 mod globals;
 mod window;
 
-use self::application::NewApplication;
+use self::application::GnomeTikTok;
 use self::window::NewWindow;
 
 use config::{GETTEXT_PACKAGE, LOCALEDIR, PKGDATADIR};
@@ -45,6 +45,6 @@ fn main() -> glib::ExitCode {
         .expect("Could not load resources!");
     gio::resources_register(&resources);
 
-    let app = NewApplication::new(globals::APP_INFO.app_id, &gio::ApplicationFlags::empty());
+    let app = GnomeTikTok::new(globals::APP_INFO.app_id, &gio::ApplicationFlags::empty());
     app.run()
 }
