@@ -4,14 +4,49 @@ project('gnome-tiktok', 'rust',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
 
-app_id = 'com.maxrdz.GnomeTikTok'
-
-if get_option('profile') == 'dev'
-  app_id = app_id + '.Dev'
-endif
+# ---------- Imports ---------- #
 
 i18n = import('i18n')
 gnome = import('gnome')
+
+# -------- Dependencies -------- #
+
+dependency('glib-2.0', version: '>= 2.66')
+dependency('gio-2.0', version: '>= 2.66')
+dependency('gtk4', version: '>= 4.10.0')
+dependency('libadwaita-1', version: '>= 1.4.alpha')
+
+# ------ Dev Dependencies ------ #
+
+glib_compile_schemas = find_program('glib-compile-schemas', required: true)
+desktop_file_validate = find_program('desktop-file-validate', required: false)
+appstream_util = find_program('appstream-util', required: false)
+appstream_cli = find_program('appstreamcli', required: false)
+cargo = find_program('cargo', required: true)
+
+# ------- Build Profile ------- #
+
+base_id = 'com.maxrdz.GnomeTikTok'
+
+if get_option('profile') == 'dev'
+  profile = 'dev'
+  application_id = '@0@.Dev'.format(base_id)
+else
+  profile = ''
+  application_id = base_id
+endif
+
+# ---- Install Directories ---- #
+
+prefix = get_option('prefix')
+bindir = prefix / get_option('bindir')
+localedir = prefix / get_option('localedir')
+
+datadir = prefix / get_option('datadir')
+pkgdatadir = datadir / meson.project_name()
+iconsdir = datadir / 'icons'
+podir = meson.project_source_root() / 'po'
+gettext_package = meson.project_name()
 
 subdir('data')
 subdir('src')

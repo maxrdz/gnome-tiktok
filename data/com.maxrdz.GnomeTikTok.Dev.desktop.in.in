@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=GNOME TikTok (Dev)
+Comment=A Linux Mobile friendly TikTok app for GNU/Linux systems.
+Keywords=tiktok;social;media;musically;dev;
+Type=Application
+Exec=gnome-tiktok
+# Do not translate this; xgettext marks this automatically.
+Icon=com.maxrdz.GnomeTikTok.Dev
+Categories=GTK;GNOME;AudioVideo;Video;Player;
+Terminal=false
