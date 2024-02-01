@@ -1,18 +1,22 @@
-// Copyright (c) 2024, GNOME TikTok Authors.
-
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License version 3.
-// You should have received a copy of this license along
-// with this source code in a file named "LICENSE."
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software Foundation,
-// Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+/* globals.rs
+ *
+ * Copyright 2024 GNOME TikTok Authors
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
 
 use adw::gtk::License;
 use libadwaita as adw;
@@ -20,10 +24,16 @@ use libadwaita as adw;
 pub static DESKTOP_VIEWPORT_RATIO: f32 = 18.0 / 9.0;
 pub static DESKTOP_DEFAULT_DIMENSIONS: (i32, i32) = (720, 360);
 
+#[cfg(debug_assertions)]
+pub static DEVELOPMENT_BUILD: bool = true;
+#[cfg(not(debug_assertions))]
+pub static DEVELOPMENT_BUILD: bool = false;
+
 pub struct AboutInformation {
     pub app_name: &'static str,
     pub app_version: &'static str,
     pub app_id: &'static str,
+    pub app_repo: &'static str,
     pub authors: &'static [&'static str],
     pub artists: Option<&'static [&'static str]>,
     pub documenters: Option<&'static [&'static str]>,
@@ -34,9 +44,20 @@ pub struct AboutInformation {
 }
 
 pub static APP_INFO: AboutInformation = AboutInformation {
-    app_name: "GNOME TikTok",
-    app_version: "0.1.0",
-    app_id: "com.maxrdz.GnomeTikTok",
+    app_name: {
+        match DEVELOPMENT_BUILD {
+            false => "GNOME TikTok",
+            true => "GNOME TikTok (Dev)"
+        }
+    },
+    app_version: env!("CARGO_PKG_VERSION"),
+    app_repo: "https://github.com/maxrdz/gnome-tiktok",
+    app_id: {
+        match DEVELOPMENT_BUILD {
+            false => "com.maxrdz.GnomeTikTok",
+            true => "com.maxrdz.GnomeTikTok.Dev",
+        }
+    },
     authors: &[
         "Max Rodriguez <me@maxrdz.com>",
         "vkill <vkill.net@gmail.com>",

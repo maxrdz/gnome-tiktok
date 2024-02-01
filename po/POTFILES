@@ -1,0 +1,4 @@
+data/com.maxrdz.GnomeTikTok.desktop.in
+data/com.maxrdz.GnomeTikTok.metainfo.xml.in
+data/com.maxrdz.GnomeTikTok.gschema.xml
+src/window.ui

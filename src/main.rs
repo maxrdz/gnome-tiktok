@@ -1,42 +1,50 @@
-// Copyright (c) 2024, GNOME TikTok Authors.
+/* main.rs
+ *
+ * Copyright 2024 GNOME TikTok Authors
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
 
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License version 3.
-// You should have received a copy of this license along
-// with this source code in a file named "LICENSE."
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software Foundation,
-// Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-
-mod app;
+mod application;
+mod config;
 mod globals;
+mod window;
 
-use adw::glib::ExitCode;
-use adw::prelude::*;
-use adw::Application;
-use globals::APP_INFO;
+use self::application::NewApplication;
+use self::window::NewWindow;
+
+use config::{GETTEXT_PACKAGE, LOCALEDIR, PKGDATADIR};
+use gettextrs::{bind_textdomain_codeset, bindtextdomain, textdomain};
+use gtk::{gio, glib};
+use gtk::prelude::*;
+use adw::gtk as gtk;
 use libadwaita as adw;
 
-fn on_activate(adw_application: &Application) {
-    let app: app::GtktokApp = app::GtktokApp::new(adw_application);
-    app.initialize();
-}
+fn main() -> glib::ExitCode {
+    // Set up gettext translations
+    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).expect("Unable to bind the text domain!");
+    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8")
+        .expect("Unable to set the text domain encoding!");
+    textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain!");
 
-fn main() -> Result<(), ()> {
-    let adw_app = Application::builder()
-        .application_id(APP_INFO.app_id)
-        .build();
-    adw_app.connect_activate(on_activate);
+    // Load resources
+    let resources = gio::Resource::load(PKGDATADIR.to_owned() + "/gnome-tiktok.gresource")
+        .expect("Could not load resources!");
+    gio::resources_register(&resources);
 
-    match adw_app.run() {
-        ExitCode::SUCCESS => Ok(()),
-        ExitCode::FAILURE => Err(()),
-        _ => Err(()),
-    }
+    let app = NewApplication::new(globals::APP_INFO.app_id, &gio::ApplicationFlags::empty());
+    app.run()
 }
