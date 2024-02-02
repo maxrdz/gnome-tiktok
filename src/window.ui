@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <requires lib="Adw" version="1.0"/>
-  <template class="NewWindow" parent="AdwApplicationWindow">
+  <requires lib="Adw" version="1.4"/>
+  <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_About</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
+  </menu>
+  <template class="MainWindow" parent="AdwApplicationWindow">
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">
           <object class="AdwHeaderBar" id="header_bar">
+            <property name="title-widget">
+              <object class="AdwViewSwitcher">
+                <property name="stack">player_stack</property>
+                <property name="policy">wide</property>
+                <property name="visible">true</property>
+              </object>
+            </property>
             <child type="end">
               <object class="GtkMenuButton">
                 <property name="primary">True</property>
@@ -18,30 +37,85 @@
           </object>
         </child>
         <property name="content">
-          <object class="GtkLabel" id="label">
-            <property name="label">Hello, World!</property>
-            <style>
-              <class name="title-1"/>
-            </style>
+          <object class="AdwViewStack" id="master_stack">
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">player</property>
+                <property name="title">Home</property>
+                <property name="icon-name">home-symbolic</property>
+                <property name="child">
+                  <object class="AdwViewStack" id="player_stack">
+                    <child>
+                      <object class="AdwViewStackPage">
+                        <property name="name">following</property>
+                        <property name="title">Following</property>
+                        <property name="icon-name">com.maxrdz.GnomeTikTok-symbolic</property>
+                        <property name="child">
+                          <object class="GtkVideo">
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwViewStackPage">
+                          <property name="name">fyp</property>
+                          <property name="title">For You</property>
+                          <property name="icon-name">com.maxrdz.GnomeTikTok-symbolic</property>
+                          <property name="child">
+                            <object class="GtkVideo">
+                            </object>
+                          </property>
+                        </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">friends</property>
+                <property name="title">Friends</property>
+                <property name="icon-name">friends-symbolic</property>
+                <property name="child">
+                  <object class="AdwStatusPage">
+                    <property name="title">Friends</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">inbox</property>
+                <property name="title">Inbox</property>
+                <property name="icon-name">inbox-symbolic</property>
+                <property name="child">
+                  <object class="AdwStatusPage">
+                    <property name="title">Inbox</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">profile</property>
+                <property name="title">Me</property>
+                <property name="icon-name">profile-symbolic</property>
+                <property name="child">
+                  <object class="AdwStatusPage">
+                    <property name="title">Profile</property>
+                  </object>
+                </property>
+              </object>
+            </child>
           </object>
         </property>
+        <child type="bottom">
+          <object class="AdwViewSwitcherBar" id="master_switcher_bar">
+            <property name="stack">master_stack</property>
+            <property name="reveal">True</property>
+          </object>
+        </child>
       </object>
     </property>
   </template>
-  <menu id="primary_menu">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Preferences</attribute>
-        <attribute name="action">app.preferences</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
-        <attribute name="action">win.show-help-overlay</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_About</attribute>
-        <attribute name="action">app.about</attribute>
-      </item>
-    </section>
-  </menu>
 </interface>

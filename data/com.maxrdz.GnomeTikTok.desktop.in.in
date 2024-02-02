@@ -8,3 +8,4 @@ Exec=gnome-tiktok
 Icon=com.maxrdz.GnomeTikTok
 Categories=GTK;GNOME;AudioVideo;Video;Player;
 Terminal=false
+X-Purism-FormFactor=Workstation;Mobile;

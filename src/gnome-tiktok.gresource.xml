@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/com/maxrdz/GnomeTikTok">
-    <file preprocess="xml-stripblanks">window.ui</file>
+    <file preprocess="xml-stripblanks" alias="friends-symbolic.svg">icons/friends-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="home-symbolic.svg">icons/home-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="inbox-symbolic.svg">icons/inbox-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="profile-symbolic.svg">icons/profile-symbolic.svg</file>
+  </gresource>
+
+  <gresource prefix="/com/maxrdz/GnomeTikTok">
     <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+    <file preprocess="xml-stripblanks">window.ui</file>
   </gresource>
 </gresources>

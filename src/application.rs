@@ -25,7 +25,7 @@ use adw::gtk as gtk;
 use libadwaita as adw;
 
 use crate::globals::*;
-use crate::NewWindow;
+use crate::window::MainWindow;
 
 mod imp {
     use super::*;
@@ -60,7 +60,7 @@ mod imp {
             let window = if let Some(window) = application.active_window() {
                 window
             } else {
-                let window = NewWindow::new(&*application);
+                let window = MainWindow::new(&*application);
                 window.upcast()
             };
 
@@ -71,7 +71,12 @@ mod imp {
             );
 
             window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
-            window.set_title(Some(APP_INFO.app_name));
+            // Silence adwaita warnings on minimum window dimensions.
+            window.set_width_request(DESKTOP_DEFAULT_DIMENSIONS.1);
+            window.set_height_request(DESKTOP_DEFAULT_DIMENSIONS.0);
+
+            window.set_resizable(false);
+            window.set_title(Some(APP_INFO.app_title));
 
             // Ask the window manager/compositor to present the window
             window.present();
@@ -112,7 +117,7 @@ impl GnomeTikTok {
             .transient_for(&window)
             .modal(true)
             .application_icon(APP_INFO.app_id)
-            .application_name(APP_INFO.app_name)
+            .application_name(APP_INFO.app_title)
             .developer_name(*APP_INFO.authors.first().unwrap())
             .version(APP_INFO.app_version)
             .issue_url(format!("{}/issues", APP_INFO.app_repo).as_str())

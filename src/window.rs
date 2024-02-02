@@ -29,18 +29,21 @@ mod imp {
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/maxrdz/GnomeTikTok/window.ui")]
-    pub struct NewWindow {
-        // Template widgets
+    pub struct MainWindow {
         #[template_child]
         pub header_bar: TemplateChild<adw::HeaderBar>,
+        // This view stack is for the top-level app views.
         #[template_child]
-        pub label: TemplateChild<gtk::Label>,
+        pub master_stack: TemplateChild<adw::ViewStack>,
+        // This view stack is for the Following / For You views.
+        #[template_child]
+        pub player_stack: TemplateChild<adw::ViewStack>,
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for NewWindow {
-        const NAME: &'static str = "NewWindow";
-        type Type = super::NewWindow;
+    impl ObjectSubclass for MainWindow {
+        const NAME: &'static str = "MainWindow";
+        type Type = super::MainWindow;
         type ParentType = adw::ApplicationWindow;
 
         fn class_init(klass: &mut Self::Class) {
@@ -52,19 +55,24 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for NewWindow {}
-    impl WidgetImpl for NewWindow {}
-    impl WindowImpl for NewWindow {}
-    impl ApplicationWindowImpl for NewWindow {}
-    impl AdwApplicationWindowImpl for NewWindow {}
+    impl ObjectImpl for MainWindow {
+        fn constructed(&self) {
+            self.parent_constructed();
+        }
+    }
+    impl WidgetImpl for MainWindow {}
+    impl WindowImpl for MainWindow {}
+    impl ApplicationWindowImpl for MainWindow {}
+    impl AdwApplicationWindowImpl for MainWindow {}
 }
 
 glib::wrapper! {
-    pub struct NewWindow(ObjectSubclass<imp::NewWindow>)
-        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,        @implements gio::ActionGroup, gio::ActionMap;
+    pub struct MainWindow(ObjectSubclass<imp::MainWindow>)
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,
+        @implements gio::ActionGroup, gio::ActionMap;
 }
 
-impl NewWindow {
+impl MainWindow {
     pub fn new<P: glib::IsA<adw::gtk::Application>>(application: &P) -> Self {
         glib::Object::builder()
             .property("application", application)

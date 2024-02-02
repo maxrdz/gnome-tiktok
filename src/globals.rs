@@ -31,6 +31,7 @@ pub static DEVELOPMENT_BUILD: bool = false;
 
 pub struct AboutInformation {
     pub app_name: &'static str,
+    pub app_title: &'static str,
     pub app_version: &'static str,
     pub app_id: &'static str,
     pub app_repo: &'static str,
@@ -44,7 +45,8 @@ pub struct AboutInformation {
 }
 
 pub static APP_INFO: AboutInformation = AboutInformation {
-    app_name: {
+    app_name: env!("CARGO_PKG_NAME"),
+    app_title: {
         match DEVELOPMENT_BUILD {
             false => "GNOME TikTok",
             true => "GNOME TikTok (Dev)"
