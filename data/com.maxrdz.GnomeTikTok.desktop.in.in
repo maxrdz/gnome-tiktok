@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=GNOME TikTok
+Name=TikTok
 Comment=A Linux Mobile friendly TikTok app for GNU/Linux systems.
 Keywords=tiktok;social;media;musically;
 Type=Application
@@ -8,4 +8,6 @@ Exec=gnome-tiktok
 Icon=com.maxrdz.GnomeTikTok
 Categories=GTK;GNOME;AudioVideo;Video;Player;
 Terminal=false
+# Keys below are recognized by the Phosh shell.
+StartupNotify=true
 X-Purism-FormFactor=Workstation;Mobile;
