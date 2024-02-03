@@ -62,18 +62,19 @@ mod imp {
                 window.upcast()
             };
 
-            window.set_resizable(false);
             window.set_title(Some(APP_INFO.app_title));
 
             if cfg!(target_arch = "aarch64") {
                 // If we're targeting arm, I'm assuming we're targeting mobile.
-                window.set_maximized(true);
+                window.set_fullscreened(true);
+                window.connect_focus_visible_notify(move |win| win.set_fullscreened(true));
             } else {
                 assert_eq!(
                     DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
                     DESKTOP_VIEWPORT_RATIO,
                     "The default desktop window dimensions ratio is not 18:9.",
                 );
+                window.set_resizable(false);
                 window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
 
                 // Silence adwaita warnings on minimum window dimensions.
