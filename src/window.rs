@@ -28,7 +28,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/com/maxrdz/GnomeTikTok/window.ui")]
+    #[template(resource = "/com/maxrdz/GnomeTikTok/ui/window.ui")]
     pub struct MainWindow {
         #[template_child]
         pub header_bar: TemplateChild<adw::HeaderBar>,

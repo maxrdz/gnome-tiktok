@@ -50,13 +50,11 @@ mod imp {
     }
 
     impl ApplicationImpl for GnomeTikTok {
-        // We connect to the activate callback to create a window when the application
-        // has been launched. Additionally, this callback notifies us when the user
-        // tries to launch a "second instance" of the application. When they try
-        // to do that, we'll just present any existing window.
         fn activate(&self) {
             let application = self.obj();
-            // Get the current window or create one if necessary
+            // The activate() callback also notifies us when the user tries
+            // to launch a "second instance" of the application. When they try
+            // to do that, we'll just present any existing window.
             let window = if let Some(window) = application.active_window() {
                 window
             } else {
@@ -64,20 +62,24 @@ mod imp {
                 window.upcast()
             };
 
-            assert_eq!(
-                DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
-                DESKTOP_VIEWPORT_RATIO,
-                "The default desktop window dimensions ratio is not 18:9.",
-            );
-
-            window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
-            // Silence adwaita warnings on minimum window dimensions.
-            window.set_width_request(DESKTOP_DEFAULT_DIMENSIONS.1);
-            window.set_height_request(DESKTOP_DEFAULT_DIMENSIONS.0);
-
             window.set_resizable(false);
             window.set_title(Some(APP_INFO.app_title));
 
+            if cfg!(target_arch = "aarch64") {
+                // If we're targeting arm, I'm assuming we're targeting mobile.
+                window.set_maximized(true);
+            } else {
+                assert_eq!(
+                    DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
+                    DESKTOP_VIEWPORT_RATIO,
+                    "The default desktop window dimensions ratio is not 18:9.",
+                );
+                window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
+
+                // Silence adwaita warnings on minimum window dimensions.
+                window.set_width_request(DESKTOP_DEFAULT_DIMENSIONS.1);
+                window.set_height_request(DESKTOP_DEFAULT_DIMENSIONS.0);
+            }
             // Ask the window manager/compositor to present the window
             window.present();
         }
