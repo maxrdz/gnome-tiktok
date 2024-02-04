@@ -2,9 +2,13 @@
 <gresources>
   <gresource prefix="/com/maxrdz/GnomeTikTok/icons/scalable/actions/">
     <file preprocess="xml-stripblanks" alias="friends-symbolic.svg">icons/friends-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="friends-hollow-symbolic.svg">icons/friends-hollow-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="home-symbolic.svg">icons/home-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="home-hollow-symbolic.svg">icons/home-hollow-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="inbox-symbolic.svg">icons/inbox-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="inbox-hollow-symbolic.svg">icons/inbox-hollow-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="profile-symbolic.svg">icons/profile-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="profile-hollow-symbolic.svg">icons/profile-hollow-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/com/maxrdz/GnomeTikTok">

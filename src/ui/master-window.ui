@@ -46,7 +46,7 @@
               <object class="AdwViewStackPage">
                 <property name="name">player</property>
                 <property name="title">Home</property>
-                <property name="icon-name">home-symbolic</property>
+                <property name="icon-name">home-hollow-symbolic</property>
                 <property name="child">
                   <object class="AdwViewStack" id="player_stack">
                     <child>
@@ -77,7 +77,7 @@
               <object class="AdwViewStackPage">
                 <property name="name">friends</property>
                 <property name="title">Friends</property>
-                <property name="icon-name">friends-symbolic</property>
+                <property name="icon-name">friends-hollow-symbolic</property>
                 <property name="child">
                   <object class="AdwStatusPage">
                     <property name="title">Friends</property>
@@ -89,7 +89,7 @@
               <object class="AdwViewStackPage">
                 <property name="name">inbox</property>
                 <property name="title">Inbox</property>
-                <property name="icon-name">inbox-symbolic</property>
+                <property name="icon-name">inbox-hollow-symbolic</property>
                 <property name="child">
                   <object class="AdwStatusPage">
                     <property name="title">Inbox</property>
@@ -101,7 +101,7 @@
               <object class="AdwViewStackPage">
                 <property name="name">profile</property>
                 <property name="title">Me</property>
-                <property name="icon-name">profile-symbolic</property>
+                <property name="icon-name">profile-hollow-symbolic</property>
                 <property name="child">
                   <object class="AdwStatusPage">
                     <property name="title">Profile</property>

@@ -54,6 +54,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
@@ -79,10 +80,16 @@ glib::wrapper! {
         @implements gio::ActionGroup, gio::ActionMap;
 }
 
+#[gtk::template_callbacks]
 impl MasterWindow {
     pub fn new<P: glib::IsA<adw::gtk::Application>>(application: &P) -> Self {
         glib::Object::builder()
             .property("application", application)
             .build()
+    }
+
+    #[template_callback]
+    pub fn on_home_clicked(&self) {
+        adw::glib::g_debug!("hey", "hey");
     }
 }
