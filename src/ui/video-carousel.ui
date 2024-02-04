@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="VideoCarousel" parent="AdwBin">
+    <object class="AdwCarousel">
+      <child>
+        <object class="GtkVideo">
+        </object>
+      </child>
+      <child>
+        <object class="GtkVideo">
+        </object>
+      </child>
+    </object>
+  </template>
+</interface>

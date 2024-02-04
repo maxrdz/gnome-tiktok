@@ -21,7 +21,8 @@
 mod application;
 mod config;
 mod globals;
-mod window;
+mod master_window;
+mod video_carousel;
 
 use self::application::GnomeTikTok;
 

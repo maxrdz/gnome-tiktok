@@ -2,6 +2,8 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.4"/>
+
+  <!-- Dropdown Menu for Sandwich on Window Header -->
   <menu id="primary_menu">
     <section>
       <item>
@@ -14,13 +16,15 @@
       </item>
     </section>
   </menu>
-  <template class="MainWindow" parent="AdwApplicationWindow">
+
+  <!-- Main App Window -->
+  <template class="MasterWindow" parent="AdwApplicationWindow">
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">
           <object class="AdwHeaderBar" id="header_bar">
             <property name="title-widget">
-              <object class="AdwViewSwitcher">
+              <object class="AdwViewSwitcher" id="player_stack_switcher">
                 <property name="stack">player_stack</property>
                 <property name="policy">wide</property>
                 <property name="visible">true</property>
@@ -51,21 +55,19 @@
                         <property name="title">Following</property>
                         <property name="icon-name">com.maxrdz.GnomeTikTok-symbolic</property>
                         <property name="child">
-                          <object class="GtkVideo">
-                          </object>
+                          <object class="VideoCarousel" id="following_feed_carousel"/>
                         </property>
                       </object>
                     </child>
                     <child>
                       <object class="AdwViewStackPage">
-                          <property name="name">fyp</property>
-                          <property name="title">For You</property>
-                          <property name="icon-name">com.maxrdz.GnomeTikTok-symbolic</property>
-                          <property name="child">
-                            <object class="GtkVideo">
-                            </object>
-                          </property>
-                        </object>
+                        <property name="name">fyp</property>
+                        <property name="title">For You</property>
+                        <property name="icon-name">com.maxrdz.GnomeTikTok-symbolic</property>
+                        <property name="child">
+                          <object class="VideoCarousel" id="fyp_feed_carousel"/>
+                        </property>
+                      </object>
                     </child>
                   </object>
                 </property>

@@ -1,4 +1,4 @@
-/* window.rs
+/* master_window.rs
  *
  * Copyright 2024 Unknown
  *
@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-use gtk::prelude::*;
+use crate::video_carousel::VideoCarousel;
 use adw::subclass::prelude::*;
 use gtk::{gio, glib};
 use adw::gtk as gtk;
@@ -28,22 +28,28 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/com/maxrdz/GnomeTikTok/ui/window.ui")]
-    pub struct MainWindow {
+    #[template(resource = "/com/maxrdz/GnomeTikTok/ui/master-window.ui")]
+    pub struct MasterWindow {
         #[template_child]
         pub header_bar: TemplateChild<adw::HeaderBar>,
+        #[template_child]
+        pub player_stack_switcher: TemplateChild<adw::ViewSwitcher>,
         // This view stack is for the top-level app views.
         #[template_child]
         pub master_stack: TemplateChild<adw::ViewStack>,
-        // This view stack is for the Following / For You views.
+        // This view stack is for the video feed carousel views.
         #[template_child]
         pub player_stack: TemplateChild<adw::ViewStack>,
+        #[template_child]
+        pub following_feed_carousel: TemplateChild<VideoCarousel>,
+        #[template_child]
+        pub fyp_feed_carousel: TemplateChild<VideoCarousel>,
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for MainWindow {
-        const NAME: &'static str = "MainWindow";
-        type Type = super::MainWindow;
+    impl ObjectSubclass for MasterWindow {
+        const NAME: &'static str = "MasterWindow";
+        type Type = super::MasterWindow;
         type ParentType = adw::ApplicationWindow;
 
         fn class_init(klass: &mut Self::Class) {
@@ -55,24 +61,25 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for MainWindow {
+    impl ObjectImpl for MasterWindow {
         fn constructed(&self) {
             self.parent_constructed();
+            let _obj = self.obj();
         }
     }
-    impl WidgetImpl for MainWindow {}
-    impl WindowImpl for MainWindow {}
-    impl ApplicationWindowImpl for MainWindow {}
-    impl AdwApplicationWindowImpl for MainWindow {}
+    impl WidgetImpl for MasterWindow {}
+    impl WindowImpl for MasterWindow {}
+    impl ApplicationWindowImpl for MasterWindow {}
+    impl AdwApplicationWindowImpl for MasterWindow {}
 }
 
 glib::wrapper! {
-    pub struct MainWindow(ObjectSubclass<imp::MainWindow>)
+    pub struct MasterWindow(ObjectSubclass<imp::MasterWindow>)
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,
         @implements gio::ActionGroup, gio::ActionMap;
 }
 
-impl MainWindow {
+impl MasterWindow {
     pub fn new<P: glib::IsA<adw::gtk::Application>>(application: &P) -> Self {
         glib::Object::builder()
             .property("application", application)

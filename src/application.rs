@@ -25,7 +25,7 @@ use adw::gtk as gtk;
 use libadwaita as adw;
 
 use crate::globals::*;
-use crate::window::MainWindow;
+use crate::master_window::MasterWindow;
 
 mod imp {
     use super::*;
@@ -58,7 +58,7 @@ mod imp {
             let window = if let Some(window) = application.active_window() {
                 window
             } else {
-                let window = MainWindow::new(&*application);
+                let window = MasterWindow::new(&*application);
                 window.upcast()
             };
 
@@ -81,7 +81,6 @@ mod imp {
                 window.set_width_request(DESKTOP_DEFAULT_DIMENSIONS.1);
                 window.set_height_request(DESKTOP_DEFAULT_DIMENSIONS.0);
             }
-            // Ask the window manager/compositor to present the window
             window.present();
         }
     }
