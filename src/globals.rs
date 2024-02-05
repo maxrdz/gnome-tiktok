@@ -18,6 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+use crate::config::VERSION;
 use adw::gtk::License;
 use libadwaita as adw;
 
@@ -52,7 +53,7 @@ pub static APP_INFO: AboutInformation = AboutInformation {
             true => "GNOME TuxTok (Dev)",
         }
     },
-    app_version: env!("CARGO_PKG_VERSION"),
+    app_version: VERSION,
     app_repo: "https://github.com/maxrdz/gnome-tuxtok",
     app_id: {
         match DEVELOPMENT_BUILD {
