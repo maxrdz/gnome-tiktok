@@ -19,9 +19,9 @@
  */
 
 use crate::video_carousel::VideoCarousel;
+use adw::gtk;
 use adw::subclass::prelude::*;
 use gtk::{gio, glib};
-use adw::gtk as gtk;
 use libadwaita as adw;
 
 mod imp {

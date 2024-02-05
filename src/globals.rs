@@ -49,7 +49,7 @@ pub static APP_INFO: AboutInformation = AboutInformation {
     app_title: {
         match DEVELOPMENT_BUILD {
             false => "GNOME TikTok",
-            true => "GNOME TikTok (Dev)"
+            true => "GNOME TikTok (Dev)",
         }
     },
     app_version: env!("CARGO_PKG_VERSION"),

@@ -18,10 +18,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-use gtk::prelude::*;
+use adw::gtk;
 use adw::subclass::prelude::*;
+use cfg_if::cfg_if;
+use gtk::prelude::*;
 use gtk::{gio, glib};
-use adw::gtk as gtk;
 use libadwaita as adw;
 
 use crate::globals::*;
@@ -64,23 +65,25 @@ mod imp {
 
             window.set_title(Some(APP_INFO.app_title));
 
-            if cfg!(target_arch = "aarch64") {
+            cfg_if!(
                 // If we're targeting arm, I'm assuming we're targeting mobile.
-                window.set_fullscreened(true);
-                window.connect_focus_visible_notify(move |win| win.set_fullscreened(true));
-            } else {
-                assert_eq!(
-                    DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
-                    DESKTOP_VIEWPORT_RATIO,
-                    "The default desktop window dimensions ratio is not 18:9.",
-                );
-                window.set_resizable(false);
-                window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
+                if #[cfg(target_arch = "aarch64")] {
+                    window.set_fullscreened(true);
+                    window.connect_focus_visible_notify(move |win| win.set_fullscreened(true));
+                } else {
+                    assert_eq!(
+                        DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
+                        DESKTOP_VIEWPORT_RATIO,
+                        "The default desktop window dimensions ratio is not 18:9.",
+                    );
+                    window.set_resizable(false);
+                    window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
 
-                // Silence adwaita warnings on minimum window dimensions.
-                window.set_width_request(DESKTOP_DEFAULT_DIMENSIONS.1);
-                window.set_height_request(DESKTOP_DEFAULT_DIMENSIONS.0);
-            }
+                    // Silence adwaita warnings on minimum window dimensions.
+                    window.set_width_request(DESKTOP_DEFAULT_DIMENSIONS.1);
+                    window.set_height_request(DESKTOP_DEFAULT_DIMENSIONS.0);
+                }
+            );
             window.present();
         }
     }
@@ -115,21 +118,41 @@ impl GnomeTikTok {
 
     fn show_about(&self) {
         let window = self.active_window().unwrap();
-        let about = adw::AboutWindow::builder()
-            .transient_for(&window)
-            .modal(true)
-            .application_icon(APP_INFO.app_id)
-            .application_name(APP_INFO.app_title)
-            .developer_name(*APP_INFO.authors.first().unwrap())
-            .version(APP_INFO.app_version)
-            .issue_url(format!("{}/issues", APP_INFO.app_repo).as_str())
-            .developers(APP_INFO.authors)
-            .copyright(APP_INFO.copyright)
-            .license(APP_INFO.license)
-            .license_type(APP_INFO.license_type)
-            .comments(APP_INFO.comments)
-            .build();
 
+        // libadwaita's about window cannot be closed easily on phosh,
+        // so we use GTK's about dialog when targeting mobile.
+        cfg_if!(
+            if #[cfg(target_arch = "aarch64")] {
+                let about = gtk::AboutDialog::builder()
+                    .transient_for(&window)
+                    .modal(true)
+                    .icon_name(APP_INFO.app_id)
+                    .name(APP_INFO.app_title)
+                    .version(APP_INFO.app_version)
+                    .website(APP_INFO.app_repo)
+                    .authors(APP_INFO.authors)
+                    .copyright(APP_INFO.copyright)
+                    .license(APP_INFO.license)
+                    .license_type(APP_INFO.license_type)
+                    .comments(APP_INFO.comments)
+                    .build();
+            } else {
+                let about = adw::AboutWindow::builder()
+                    .transient_for(&window)
+                    .modal(true)
+                    .application_icon(APP_INFO.app_id)
+                    .application_name(APP_INFO.app_title)
+                    .developer_name(*APP_INFO.authors.first().unwrap())
+                    .version(APP_INFO.app_version)
+                    .issue_url(format!("{}/issues", APP_INFO.app_repo).as_str())
+                    .developers(APP_INFO.authors)
+                    .copyright(APP_INFO.copyright)
+                    .license(APP_INFO.license)
+                    .license_type(APP_INFO.license_type)
+                    .comments(APP_INFO.comments)
+                    .build();
+            }
+        );
         about.present();
     }
 }
