@@ -420,6 +420,7 @@ dependencies = [
 name = "gnome-tiktok"
 version = "0.1.0"
 dependencies = [
+ "cfg-if",
  "gettext-rs",
  "libadwaita",
  "tiktok-api",
