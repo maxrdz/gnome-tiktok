@@ -1,11 +1,11 @@
 [Desktop Entry]
-Name=TikTok (Dev)
-Comment=A Linux Mobile friendly TikTok app for GNU/Linux systems.
-Keywords=tiktok;social;media;musically;dev;
+Name=TuxTok
+Comment=A Linux Mobile friendly TikTok-compatible app for GNU/Linux systems.
+Keywords=tiktok;social;media;musically;
 Type=Application
-Exec=gnome-tiktok-dev
+Exec=gnome-tuxtok
 # Do not translate this; xgettext marks this automatically.
-Icon=com.maxrdz.GnomeTikTok.Dev
+Icon=com.maxrdz.GnomeTuxTok
 Categories=GTK;GNOME;AudioVideo;Video;Player;
 Terminal=false
 # Keys below are recognized by the Phosh shell.

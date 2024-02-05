@@ -1,6 +1,6 @@
 /* video_carousel.rs
  *
- * Copyright 2024 Unknown
+ * Copyright 2024 GNOME TuxTok Authors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/com/maxrdz/GnomeTikTok/ui/video-carousel.ui")]
+    #[template(resource = "/com/maxrdz/GnomeTuxTok/ui/video-carousel.ui")]
     pub struct VideoCarousel {}
 
     #[glib::object_subclass]

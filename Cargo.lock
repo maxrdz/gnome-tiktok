@@ -417,7 +417,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "gnome-tiktok"
+name = "gnome-tuxtok"
 version = "0.1.0"
 dependencies = [
  "cfg-if",

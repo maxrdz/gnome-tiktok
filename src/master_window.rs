@@ -1,6 +1,6 @@
 /* master_window.rs
  *
- * Copyright 2024 Unknown
+ * Copyright 2024 GNOME TuxTok Authors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/com/maxrdz/GnomeTikTok/ui/master-window.ui")]
+    #[template(resource = "/com/maxrdz/GnomeTuxTok/ui/master-window.ui")]
     pub struct MasterWindow {
         #[template_child]
         pub header_bar: TemplateChild<adw::HeaderBar>,

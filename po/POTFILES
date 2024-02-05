@@ -1,4 +1,6 @@
-data/com.maxrdz.GnomeTikTok.desktop.in
-data/com.maxrdz.GnomeTikTok.metainfo.xml.in
-data/com.maxrdz.GnomeTikTok.gschema.xml
-src/window.ui
+data/com.maxrdz.GnomeTuxTok.desktop.in
+data/com.maxrdz.GnomeTuxTok.metainfo.xml.in
+data/com.maxrdz.GnomeTuxTok.gschema.xml
+src/ui/master-window.ui
+src/ui/slideshow-carousel.ui
+src/ui/video-carousel.ui

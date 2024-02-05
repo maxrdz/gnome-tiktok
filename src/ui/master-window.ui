@@ -53,7 +53,7 @@
                       <object class="AdwViewStackPage">
                         <property name="name">following</property>
                         <property name="title">Following</property>
-                        <property name="icon-name">com.maxrdz.GnomeTikTok-symbolic</property>
+                        <property name="icon-name">com.maxrdz.GnomeTuxTok-symbolic</property>
                         <property name="child">
                           <object class="VideoCarousel" id="following_feed_carousel"/>
                         </property>
@@ -63,7 +63,7 @@
                       <object class="AdwViewStackPage">
                         <property name="name">fyp</property>
                         <property name="title">For You</property>
-                        <property name="icon-name">com.maxrdz.GnomeTikTok-symbolic</property>
+                        <property name="icon-name">com.maxrdz.GnomeTuxTok-symbolic</property>
                         <property name="child">
                           <object class="VideoCarousel" id="fyp_feed_carousel"/>
                         </property>

@@ -6,5 +6,5 @@ option(
     'dev'
   ],
   value: 'default',
-  description: 'The build profile for GNOME TikTok. `default` or `dev`.'
+  description: 'The build profile for GNOME TuxTok. `default` or `dev`.'
 )

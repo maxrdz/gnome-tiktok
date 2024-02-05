@@ -1,6 +1,6 @@
 /* main.rs
  *
- * Copyright 2024 GNOME TikTok Authors
+ * Copyright 2024 GNOME TuxTok Authors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ mod globals;
 mod master_window;
 mod video_carousel;
 
-use self::application::GnomeTikTok;
+use self::application::GnomeTuxTok;
 
 use adw::gtk;
 use config::{GETTEXT_PACKAGE, LOCALEDIR, PKGDATADIR};
@@ -50,6 +50,6 @@ fn main() -> glib::ExitCode {
     .expect("Could not load resources!");
     gio::resources_register(&resources);
 
-    let app = GnomeTikTok::new(globals::APP_INFO.app_id, &gio::ApplicationFlags::empty());
+    let app = GnomeTuxTok::new(globals::APP_INFO.app_id, &gio::ApplicationFlags::empty());
     app.run()
 }

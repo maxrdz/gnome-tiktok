@@ -1,6 +1,6 @@
 /* globals.rs
  *
- * Copyright 2024 GNOME TikTok Authors
+ * Copyright 2024 GNOME TuxTok Authors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,16 +48,16 @@ pub static APP_INFO: AboutInformation = AboutInformation {
     app_name: env!("CARGO_PKG_NAME"),
     app_title: {
         match DEVELOPMENT_BUILD {
-            false => "GNOME TikTok",
-            true => "GNOME TikTok (Dev)",
+            false => "GNOME TuxTok",
+            true => "GNOME TuxTok (Dev)",
         }
     },
     app_version: env!("CARGO_PKG_VERSION"),
-    app_repo: "https://github.com/maxrdz/gnome-tiktok",
+    app_repo: "https://github.com/maxrdz/gnome-tuxtok",
     app_id: {
         match DEVELOPMENT_BUILD {
-            false => "com.maxrdz.GnomeTikTok",
-            true => "com.maxrdz.GnomeTikTok.Dev",
+            false => "com.maxrdz.GnomeTuxTok",
+            true => "com.maxrdz.GnomeTuxTok.Dev",
         }
     },
     authors: &[
@@ -66,7 +66,7 @@ pub static APP_INFO: AboutInformation = AboutInformation {
     ],
     artists: None,
     documenters: None,
-    copyright: "© 2024 GNOME TikTok Authors",
+    copyright: "© 2024 GNOME TuxTok Authors",
     license: "GNU General Public License v3.0",
     license_type: License::Gpl30,
     comments: "A Linux mobile friendly app for using the \

@@ -5,7 +5,7 @@ gnome = import('gnome')
 
 conf = configuration_data()
 conf.set_quoted('VERSION', meson.project_version())
-conf.set_quoted('GETTEXT_PACKAGE', 'gnome-tiktok')
+conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 
@@ -60,7 +60,7 @@ cargo_build = custom_target(
 # ---------- GResources ---------- #
 
 gnome.compile_resources(meson.project_name(),
-  'gnome-tiktok.gresource.xml',
+  '@0@.gresource.xml'.format(meson.project_name()),
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,

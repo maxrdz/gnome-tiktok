@@ -1,1 +1,1 @@
-i18n.gettext('gnome-tiktok', preset: 'glib')
+i18n.gettext('gnome-tuxtok', preset: 'glib')

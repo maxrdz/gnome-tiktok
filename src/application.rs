@@ -1,6 +1,6 @@
 /* application.rs
  *
- * Copyright 2024 GNOME TikTok Authors
+ * Copyright 2024 GNOME TuxTok Authors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,16 +32,16 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default)]
-    pub struct GnomeTikTok {}
+    pub struct GnomeTuxTok {}
 
     #[glib::object_subclass]
-    impl ObjectSubclass for GnomeTikTok {
-        const NAME: &'static str = "GnomeTikTok";
-        type Type = super::GnomeTikTok;
+    impl ObjectSubclass for GnomeTuxTok {
+        const NAME: &'static str = "GnomeTuxTok";
+        type Type = super::GnomeTuxTok;
         type ParentType = adw::Application;
     }
 
-    impl ObjectImpl for GnomeTikTok {
+    impl ObjectImpl for GnomeTuxTok {
         fn constructed(&self) {
             self.parent_constructed();
             let obj = self.obj();
@@ -50,7 +50,7 @@ mod imp {
         }
     }
 
-    impl ApplicationImpl for GnomeTikTok {
+    impl ApplicationImpl for GnomeTuxTok {
         fn activate(&self) {
             let application = self.obj();
             // The activate() callback also notifies us when the user tries
@@ -88,17 +88,17 @@ mod imp {
         }
     }
 
-    impl GtkApplicationImpl for GnomeTikTok {}
-    impl AdwApplicationImpl for GnomeTikTok {}
+    impl GtkApplicationImpl for GnomeTuxTok {}
+    impl AdwApplicationImpl for GnomeTuxTok {}
 }
 
 glib::wrapper! {
-    pub struct GnomeTikTok(ObjectSubclass<imp::GnomeTikTok>)
+    pub struct GnomeTuxTok(ObjectSubclass<imp::GnomeTuxTok>)
         @extends gio::Application, gtk::Application, adw::Application,
         @implements gio::ActionGroup, gio::ActionMap;
 }
 
-impl GnomeTikTok {
+impl GnomeTuxTok {
     pub fn new(application_id: &str, flags: &gio::ApplicationFlags) -> Self {
         glib::Object::builder()
             .property("application-id", application_id)

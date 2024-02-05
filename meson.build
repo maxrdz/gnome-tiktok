@@ -1,4 +1,4 @@
-project('gnome-tiktok', 'rust',
+project('gnome-tuxtok', 'rust',
           version: '0.1.0',
     meson_version: '>= 0.62.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
@@ -26,7 +26,7 @@ cargo = find_program('cargo', required: true)
 
 # ------- Build Profile ------- #
 
-base_id = 'com.maxrdz.GnomeTikTok'
+base_id = 'com.maxrdz.GnomeTuxTok'
 
 if get_option('profile') == 'dev'
   profile = 'dev'

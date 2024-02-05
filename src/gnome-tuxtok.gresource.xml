@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/com/maxrdz/GnomeTikTok/icons/scalable/actions/">
+  <gresource prefix="/com/maxrdz/GnomeTuxTok/icons/scalable/actions/">
     <file preprocess="xml-stripblanks" alias="friends-symbolic.svg">icons/friends-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="friends-hollow-symbolic.svg">icons/friends-hollow-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="home-symbolic.svg">icons/home-symbolic.svg</file>
@@ -11,7 +11,7 @@
     <file preprocess="xml-stripblanks" alias="profile-hollow-symbolic.svg">icons/profile-hollow-symbolic.svg</file>
   </gresource>
 
-  <gresource prefix="/com/maxrdz/GnomeTikTok">
+  <gresource prefix="/com/maxrdz/GnomeTuxTok">
     <file preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/help-overlay.ui</file>
     <file preprocess="xml-stripblanks">ui/master-window.ui</file>
     <file preprocess="xml-stripblanks">ui/slideshow-carousel.ui</file>

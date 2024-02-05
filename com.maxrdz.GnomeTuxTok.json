@@ -1,12 +1,12 @@
 {
-    "app-id" : "com.maxrdz.GnomeTikTok",
+    "app-id" : "com.maxrdz.GnomeTuxTok",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "45",
     "sdk" : "org.gnome.Sdk",
     "sdk-extensions" : [
         "org.freedesktop.Sdk.Extension.rust-stable"
     ],
-    "command" : "gnome-tiktok",
+    "command" : "gnome-tuxtok",
     "finish-args" : [
         "--share=network",
         "--share=ipc",
@@ -21,7 +21,7 @@
         ],
         "env" : {
             "RUST_BACKTRACE" : "1",
-            "RUST_LOG" : "gnome-tiktok=debug"
+            "RUST_LOG" : "gnome-tuxtok=debug"
         }
     },
     "cleanup" : [
@@ -37,7 +37,7 @@
     ],
     "modules" : [
         {
-            "name" : "gnome-tiktok",
+            "name" : "gnome-tuxtok",
             "buildsystem" : "meson",
             "config-opts" : [
             	"-Dprofile=dev"

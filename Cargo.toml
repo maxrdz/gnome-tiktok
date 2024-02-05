@@ -1,5 +1,5 @@
 [package]
-name = "gnome-tiktok"
+name = "gnome-tuxtok"
 version = "0.1.0"
 edition = "2021"
 license = "GPL-3.0"
@@ -7,8 +7,8 @@ authors = [
     "Max Rodriguez <me@maxrdz.com>",
     "vkill <vkill.net@gmail.com>",
 ]
-repository = "https://github.com/maxrdz/gnome-tiktok" 
-homepage = "https://github.com/maxrdz/gnome-tiktok"
+repository = "https://github.com/maxrdz/gnome-tuxtok" 
+homepage = "https://github.com/maxrdz/gnome-tuxtok"
 
 [profile.release]
 codegen-units = 1 # Best LLVM optimization
