@@ -12,9 +12,9 @@
   </gresource>
 
   <gresource prefix="/com/maxrdz/GnomeTuxTok">
+    <file preprocess="xml-stripblanks">ui/feed-carousel.ui</file>
     <file preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/help-overlay.ui</file>
     <file preprocess="xml-stripblanks">ui/master-window.ui</file>
     <file preprocess="xml-stripblanks">ui/slideshow-carousel.ui</file>
-    <file preprocess="xml-stripblanks">ui/video-carousel.ui</file>
   </gresource>
 </gresources>

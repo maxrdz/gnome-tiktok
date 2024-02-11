@@ -18,8 +18,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-use crate::video_carousel::VideoCarousel;
+use crate::feed_carousel::FeedCarousel;
 use adw::gtk;
+use adw::glib::ObjectExt;
 use adw::subclass::prelude::*;
 use gtk::{gio, glib};
 use libadwaita as adw;
@@ -33,17 +34,21 @@ mod imp {
         #[template_child]
         pub header_bar: TemplateChild<adw::HeaderBar>,
         #[template_child]
+        pub master_stack: TemplateChild<adw::ViewStack>,
+        #[template_child]
         pub player_stack_switcher: TemplateChild<adw::ViewSwitcher>,
+        #[template_child]
+        pub session_switcher_bar: TemplateChild<adw::ViewSwitcherBar>,
         // This view stack is for the top-level app views.
         #[template_child]
-        pub master_stack: TemplateChild<adw::ViewStack>,
+        pub session_stack: TemplateChild<adw::ViewStack>,
         // This view stack is for the video feed carousel views.
         #[template_child]
         pub player_stack: TemplateChild<adw::ViewStack>,
         #[template_child]
-        pub following_feed_carousel: TemplateChild<VideoCarousel>,
+        pub following_feed_carousel: TemplateChild<FeedCarousel>,
         #[template_child]
-        pub fyp_feed_carousel: TemplateChild<VideoCarousel>,
+        pub fyp_feed_carousel: TemplateChild<FeedCarousel>,
     }
 
     #[glib::object_subclass]
@@ -54,7 +59,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
-            klass.bind_template_instance_callbacks();
+            klass.bind_template_callbacks();
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
@@ -62,10 +67,40 @@ mod imp {
         }
     }
 
+    #[gtk::template_callbacks]
+    impl MasterWindow {
+        #[template_callback]
+        fn on_session_stack_visible(&self) {
+            self.player_stack_switcher.set_property("visible", "True");
+            self.session_switcher_bar.set_property("reveal", "True");
+        }
+    }
+
     impl ObjectImpl for MasterWindow {
         fn constructed(&self) {
             self.parent_constructed();
             let _obj = self.obj();
+
+            // FIXME: This is not necessary, just for looks, but it changes the stack
+            // view page icon to a filled version if it is currently displayed. When
+            // I set the `icon-name` property, it sets the icon of the literal page
+            // content instead. When I try to access the page content's parent, which
+            // **should** be the ViewStackPage, instead I get the ViewStack itself.
+            // I have no idea why I can't change the icon of the ViewStackPage.
+            //self.master_stack.connect_visible_child_notify(
+            //    move |view_stack: &'_ adw::ViewStack| {
+            //        let vc_res: Option<gtk::Widget> = view_stack.visible_child();
+            //        assert_eq!(
+            //            vc_res.is_some(),
+            //            true,
+            //            "visible_child_notify signal received, but no visible child found."
+            //        );
+            //        let visible_child: gtk::Widget = vc_res.unwrap();
+            //        let mut page_name: String = visible_child.property("name");
+            //        page_name.push_str("-symbolic");
+            //        visible_child.set_property("icon-name", page_name.as_str());
+            //    },
+            //);
         }
     }
     impl WidgetImpl for MasterWindow {}
@@ -80,16 +115,10 @@ glib::wrapper! {
         @implements gio::ActionGroup, gio::ActionMap;
 }
 
-#[gtk::template_callbacks]
 impl MasterWindow {
     pub fn new<P: glib::IsA<adw::gtk::Application>>(application: &P) -> Self {
         glib::Object::builder()
             .property("application", application)
             .build()
-    }
-
-    #[template_callback]
-    pub fn on_home_clicked(&self) {
-        adw::glib::g_debug!("hey", "hey");
     }
 }

@@ -2,7 +2,6 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.4"/>
-
   <!-- Dropdown Menu for Sandwich on Window Header -->
   <menu id="primary_menu">
     <section>
@@ -16,7 +15,6 @@
       </item>
     </section>
   </menu>
-
   <!-- Main App Window -->
   <template class="MasterWindow" parent="AdwApplicationWindow">
     <property name="content">
@@ -27,7 +25,7 @@
               <object class="AdwViewSwitcher" id="player_stack_switcher">
                 <property name="stack">player_stack</property>
                 <property name="policy">wide</property>
-                <property name="visible">true</property>
+                <property name="visible">false</property>
               </object>
             </property>
             <child type="end">
@@ -42,30 +40,89 @@
         </child>
         <property name="content">
           <object class="AdwViewStack" id="master_stack">
+            <!-- Loading Page -->
             <child>
               <object class="AdwViewStackPage">
-                <property name="name">player</property>
-                <property name="title">Home</property>
-                <property name="icon-name">home-hollow-symbolic</property>
+                <property name="name">loading</property>
                 <property name="child">
-                  <object class="AdwViewStack" id="player_stack">
+                  <object class="AdwStatusPage">
+                    <property name="title">Loading</property>
+                    <property name="icon-name">com.maxrdz.GnomeTuxTok-symbolic</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <!-- Session Page -->
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">session</property>
+                <property name="child">
+                  <object class="AdwViewStack" id="session_stack">
+                  <signal name="show" handler="on_session_stack_visible" swapped="no"/>
                     <child>
                       <object class="AdwViewStackPage">
-                        <property name="name">following</property>
-                        <property name="title">Following</property>
-                        <property name="icon-name">com.maxrdz.GnomeTuxTok-symbolic</property>
+                        <property name="name">home</property>
+                        <property name="title">Home</property>
+                        <property name="icon-name">home-hollow-symbolic</property>
                         <property name="child">
-                          <object class="VideoCarousel" id="following_feed_carousel"/>
+                          <object class="AdwViewStack" id="player_stack">
+                            <child>
+                              <object class="AdwViewStackPage">
+                                <property name="name">following</property>
+                                <property name="title">Following</property>
+                                <property name="icon-name">com.maxrdz.GnomeTuxTok-symbolic</property>
+                                <property name="child">
+                                  <object class="FeedCarousel" id="following_feed_carousel"/>
+                                </property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="AdwViewStackPage">
+                                <property name="name">fyp</property>
+                                <property name="title">For You</property>
+                                <property name="icon-name">com.maxrdz.GnomeTuxTok-symbolic</property>
+                                <property name="child">
+                                  <object class="FeedCarousel" id="fyp_feed_carousel"/>
+                                </property>
+                              </object>
+                            </child>
+                          </object>
                         </property>
                       </object>
                     </child>
                     <child>
                       <object class="AdwViewStackPage">
-                        <property name="name">fyp</property>
-                        <property name="title">For You</property>
-                        <property name="icon-name">com.maxrdz.GnomeTuxTok-symbolic</property>
+                        <property name="name">friends</property>
+                        <property name="title">Friends</property>
+                        <property name="icon-name">friends-hollow-symbolic</property>
                         <property name="child">
-                          <object class="VideoCarousel" id="fyp_feed_carousel"/>
+                          <object class="AdwStatusPage">
+                            <property name="title">Friends</property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwViewStackPage">
+                        <property name="name">inbox</property>
+                        <property name="title">Inbox</property>
+                        <property name="icon-name">inbox-hollow-symbolic</property>
+                        <property name="child">
+                          <object class="AdwStatusPage">
+                            <property name="title">Inbox</property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwViewStackPage">
+                        <property name="name">profile</property>
+                        <property name="title">Me</property>
+                        <property name="icon-name">profile-hollow-symbolic</property>
+                        <property name="child">
+                          <object class="AdwStatusPage">
+                            <property name="title">Profile</property>
+                          </object>
                         </property>
                       </object>
                     </child>
@@ -73,48 +130,22 @@
                 </property>
               </object>
             </child>
+            <!-- Welcome Page -->
             <child>
               <object class="AdwViewStackPage">
-                <property name="name">friends</property>
-                <property name="title">Friends</property>
-                <property name="icon-name">friends-hollow-symbolic</property>
+                <property name="name">welcome</property>
                 <property name="child">
-                  <object class="AdwStatusPage">
-                    <property name="title">Friends</property>
-                  </object>
+                  <object class="AdwStatusPage"/>
                 </property>
               </object>
             </child>
-            <child>
-              <object class="AdwViewStackPage">
-                <property name="name">inbox</property>
-                <property name="title">Inbox</property>
-                <property name="icon-name">inbox-hollow-symbolic</property>
-                <property name="child">
-                  <object class="AdwStatusPage">
-                    <property name="title">Inbox</property>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="AdwViewStackPage">
-                <property name="name">profile</property>
-                <property name="title">Me</property>
-                <property name="icon-name">profile-hollow-symbolic</property>
-                <property name="child">
-                  <object class="AdwStatusPage">
-                    <property name="title">Profile</property>
-                  </object>
-                </property>
-              </object>
-            </child>
-          </object>
+            <property name="visible-child-name">session</property>
+          </object> <!-- master_stack -->
         </property>
         <child type="bottom">
-          <object class="AdwViewSwitcherBar" id="master_switcher_bar">
-            <property name="stack">master_stack</property>
-            <property name="reveal">True</property>
+          <object class="AdwViewSwitcherBar" id="session_switcher_bar">
+            <property name="stack">session_stack</property>
+            <property name="reveal">False</property>
           </object>
         </child>
       </object>

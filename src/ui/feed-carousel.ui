@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="FeedCarousel" parent="AdwBin">
+    <child>
+      <object class="AdwCarousel" id="video_carousel">
+        <!-- List of fixed properties that are shared on mobile and desktop. -->
+        <property name="accessible-role">GTK_ACCESSIBLE_ROLE_FEED</property>
+        <property name="orientation">vertical</property>
+        <property name="allow-mouse-drag">True</property>
+        <property name="allow-scroll-wheel">True</property>
+        <property name="allow-long-swipes">False</property>
+        <property name="reveal-duration">200</property> <!-- milliseconds -->
+        <child>
+          <object class="GtkVideo" id="video_widget_1"/>
+        </child>
+        <child>
+          <object class="GtkVideo" id="video_widget_2"/>
+        </child>
+        <child>
+          <object class="GtkVideo" id="video_widget_3"/>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

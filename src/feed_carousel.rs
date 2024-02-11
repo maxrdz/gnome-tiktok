@@ -1,4 +1,4 @@
-/* video_carousel.rs
+/* feed_carousel.rs
  *
  * Copyright 2024 GNOME TuxTok Authors
  *
@@ -27,13 +27,22 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/com/maxrdz/GnomeTuxTok/ui/video-carousel.ui")]
-    pub struct VideoCarousel {}
+    #[template(resource = "/com/maxrdz/GnomeTuxTok/ui/feed-carousel.ui")]
+    pub struct FeedCarousel {
+        #[template_child]
+        pub video_carousel: TemplateChild<adw::Carousel>,
+        #[template_child]
+        pub video_widget_1: TemplateChild<gtk::Video>,
+        #[template_child]
+        pub video_widget_2: TemplateChild<gtk::Video>,
+        #[template_child]
+        pub video_widget_3: TemplateChild<gtk::Video>,
+    }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for VideoCarousel {
-        const NAME: &'static str = "VideoCarousel";
-        type Type = super::VideoCarousel;
+    impl ObjectSubclass for FeedCarousel {
+        const NAME: &'static str = "FeedCarousel";
+        type Type = super::FeedCarousel;
         type ParentType = adw::Bin;
 
         fn class_init(klass: &mut Self::Class) {
@@ -45,22 +54,23 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for VideoCarousel {
+    impl ObjectImpl for FeedCarousel {
         fn constructed(&self) {
             self.parent_constructed();
+            let _obj = self.obj(); // our class' widget, inhereting from AdwBin
         }
     }
-    impl WidgetImpl for VideoCarousel {}
-    impl BinImpl for VideoCarousel {}
+    impl WidgetImpl for FeedCarousel {}
+    impl BinImpl for FeedCarousel {}
 }
 
 glib::wrapper! {
-    pub struct VideoCarousel(ObjectSubclass<imp::VideoCarousel>)
+    pub struct FeedCarousel(ObjectSubclass<imp::FeedCarousel>)
         @extends gtk::Widget, adw::Bin,
         @implements gio::ActionGroup, gio::ActionMap;
 }
 
-impl VideoCarousel {
+impl FeedCarousel {
     pub fn new<P: glib::IsA<adw::gtk::Application>>(application: &P) -> Self {
         glib::Object::builder()
             .property("application", application)

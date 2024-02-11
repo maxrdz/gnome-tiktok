@@ -18,7 +18,9 @@ lto = true
 strip = true
 
 [dependencies]
+cfg-if = { version = "1.0" }
+log = { version = "0.4" }
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 libadwaita = { version = "0.5", features = ["v1_4"] }
 tiktok-api = { version = "0.3" }
-cfg-if = { version = "1.0" }
+keyring = { version = "2" }

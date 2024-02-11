@@ -22,7 +22,7 @@ mod application;
 mod config;
 mod globals;
 mod master_window;
-mod video_carousel;
+mod feed_carousel;
 
 use self::application::GnomeTuxTok;
 

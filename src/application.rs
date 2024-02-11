@@ -69,19 +69,27 @@ mod imp {
                 // If we're targeting arm, I'm assuming we're targeting mobile.
                 if #[cfg(target_arch = "aarch64")] {
                     window.set_fullscreened(true);
+                    // if we go out of focus, once we come back, restore fullscreen again.
                     window.connect_focus_visible_notify(move |win| win.set_fullscreened(true));
                 } else {
-                    assert_eq!(
-                        DESKTOP_DEFAULT_DIMENSIONS.0 as f32 / DESKTOP_DEFAULT_DIMENSIONS.1 as f32,
-                        DESKTOP_VIEWPORT_RATIO,
-                        "The default desktop window dimensions ratio is not 18:9.",
-                    );
-                    window.set_resizable(false);
-                    window.set_default_size(DESKTOP_DEFAULT_DIMENSIONS.1, DESKTOP_DEFAULT_DIMENSIONS.0);
+                    window.set_maximized(true);
 
-                    // Silence adwaita warnings on minimum window dimensions.
-                    window.set_width_request(DESKTOP_DEFAULT_DIMENSIONS.1);
-                    window.set_height_request(DESKTOP_DEFAULT_DIMENSIONS.0);
+                    window.connect_maximized_notify(move |win| {
+                        //let screen_width: i32 = win.width();
+                        let screen_width: i32 = 1080; // issue with .width() ^^
+                        win.set_maximized(false);
+
+                        let window_width: i32 = screen_width / DESKTOP_WIDTH_DIVISOR;
+                        let height_float: f32 = window_width as f32 * VIEWPORT_ASPECT_RATIO;
+                        let window_height: i32 = height_float.round() as i32;
+
+                        win.set_default_size(window_width, window_height);
+
+                        // Silence adwaita warnings on minimum window dimensions.
+                        win.set_width_request(window_width);
+                        win.set_height_request(window_height);
+                        win.set_resizable(false);
+                    })
                 }
             );
             window.present();
@@ -118,41 +126,23 @@ impl GnomeTuxTok {
 
     fn show_about(&self) {
         let window = self.active_window().unwrap();
-
-        // libadwaita's about window cannot be closed easily on phosh,
-        // so we use GTK's about dialog when targeting mobile.
-        cfg_if!(
-            if #[cfg(target_arch = "aarch64")] {
-                let about = gtk::AboutDialog::builder()
-                    .transient_for(&window)
-                    .modal(true)
-                    .icon_name(APP_INFO.app_id)
-                    .name(APP_INFO.app_title)
-                    .version(APP_INFO.app_version)
-                    .website(APP_INFO.app_repo)
-                    .authors(APP_INFO.authors)
-                    .copyright(APP_INFO.copyright)
-                    .license(APP_INFO.license)
-                    .license_type(APP_INFO.license_type)
-                    .comments(APP_INFO.comments)
-                    .build();
-            } else {
-                let about = adw::AboutWindow::builder()
-                    .transient_for(&window)
-                    .modal(true)
-                    .application_icon(APP_INFO.app_id)
-                    .application_name(APP_INFO.app_title)
-                    .developer_name(*APP_INFO.authors.first().unwrap())
-                    .version(APP_INFO.app_version)
-                    .issue_url(format!("{}/issues", APP_INFO.app_repo).as_str())
-                    .developers(APP_INFO.authors)
-                    .copyright(APP_INFO.copyright)
-                    .license(APP_INFO.license)
-                    .license_type(APP_INFO.license_type)
-                    .comments(APP_INFO.comments)
-                    .build();
-            }
-        );
+        // No exit/back button on this window, so mobile users
+        // (at least on Phosh) need to swipe out of the program
+        // and close this new tab to return back to the main window.
+        let about = adw::AboutWindow::builder()
+            .transient_for(&window)
+            .modal(true)
+            .application_icon(APP_INFO.app_id)
+            .application_name(APP_INFO.app_title)
+            .developer_name(*APP_INFO.authors.first().unwrap())
+            .version(APP_INFO.app_version)
+            .issue_url(format!("{}/issues", APP_INFO.app_repo).as_str())
+            .developers(APP_INFO.authors)
+            .copyright(APP_INFO.copyright)
+            .license(APP_INFO.license)
+            .license_type(APP_INFO.license_type)
+            .comments(APP_INFO.comments)
+            .build();
         about.present();
     }
 }

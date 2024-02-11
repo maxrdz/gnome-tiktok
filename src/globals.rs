@@ -20,15 +20,11 @@
 
 use crate::config::VERSION;
 use adw::gtk::License;
-use cfg_if::cfg_if;
 use libadwaita as adw;
 
-cfg_if!(
-    if #[cfg(target_arch = "x86_64")] {
-        pub static DESKTOP_VIEWPORT_RATIO: f32 = 18.0 / 9.0;
-        pub static DESKTOP_DEFAULT_DIMENSIONS: (i32, i32) = (720, 360);
-    }
-);
+pub static VIEWPORT_ASPECT_RATIO: f32 = 18.0 / 9.0;
+#[cfg(target_arch = "x86_64")]
+pub static DESKTOP_WIDTH_DIVISOR: i32 = 3;
 
 #[cfg(debug_assertions)]
 pub static DEVELOPMENT_BUILD: bool = true;

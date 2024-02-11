@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="SlideShowCarousel" parent="AdwBin">
+    <object class="AdwCarousel">
+    </object>
+  </template>
+</interface>
